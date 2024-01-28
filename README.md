@@ -18,11 +18,13 @@ How fast were they in terms of wall clock time? Iterations? Would cross validati
 performance was due to the problems you chose? Which algorithm performed best? How do you define
 best? Be creative and think of as many questions you can, and as many answers as you can.
 
-# Context
+# Heart Failure Prediction Dataset
 
 Cardiovascular diseases (CVDs) are the number 1 cause of death globally, taking an estimated 17.9 million lives each year, which accounts for 31% of all deaths worldwide. Four out of 5 CVD deaths are due to heart attacks and strokes, and one-third of these deaths occur prematurely in people under 70 years of age. Heart failure is a common event caused by CVDs, and this dataset contains 11 features that can be used to predict a possible heart disease.
 
 People with cardiovascular disease or who are at high cardiovascular risk (due to the presence of one or more risk factors such as hypertension, diabetes, hyperlipidemia, or already established disease) need early detection and management wherein a machine learning model can be of great help.
+
+I chose this dataset because I have a Ph.D. in mechanobiology where I studied vascular cells. My projects focussed on phenotyping the cells and differentiation between healthy and diseased cells. Hence, I wanted to delve more into the causes of heart diseases using Machine Learning. 
 
 ## Attribute Information
 
@@ -78,6 +80,8 @@ David W. Aha (aha '@' ics.uci.edu) (714) 856-8779
 ## Description
 
 This dataset provides information on New York houses, offering valuable insights into the real estate market in the region. It includes details such as broker titles, house types, prices, number of bedrooms and bathrooms, property square footage, addresses, state, administrative and local areas, street names, and geographical coordinates.
+
+I chose this dataset as I live in New York and I have personally struggled with finding affordable housing here. This gives me a chance to undesratand the driving forces behind the prices in the New York real estate market. 
 
 ## Key Features
 
