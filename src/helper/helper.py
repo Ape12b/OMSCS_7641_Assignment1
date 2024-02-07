@@ -25,6 +25,7 @@ def grid_search_func(estimator, params, param_names,
     X_test (array-like, optional): Testing data.
     y_train (array-like, optional): Training labels.
     y_test (array-like, optional): Testing labels.
+    verbose (int, default=0): Controls the verbosity of the grid search.
 
 
     Returns:
