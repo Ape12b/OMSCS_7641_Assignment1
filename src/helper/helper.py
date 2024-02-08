@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import learning_curve
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, f1_score, make_scorer
 import time
 import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
@@ -11,7 +11,7 @@ def grid_search_func(estimator, params, param_names,
                      cv=5, scoring='accuracy', 
                      X_train=None, X_test=None, 
                      y_train=None, y_test=None,
-                     verbose=0):
+                     verbose=0, pos_label = None):
     """
     Perform grid search with cross-validation to find the best hyperparameters for the given estimator.
 
@@ -26,7 +26,7 @@ def grid_search_func(estimator, params, param_names,
     y_train (array-like, optional): Training labels.
     y_test (array-like, optional): Testing labels.
     verbose (int, default=0): Controls the verbosity of the grid search.
-
+    pos_label (int, default=0): Controls the verbosity of the grid search.
 
     Returns:
     dict: Best parameters found during grid search.
@@ -34,8 +34,17 @@ def grid_search_func(estimator, params, param_names,
     # Define the hyperparameters grid
     param_grid = {param_name: param for param_name, param in zip(param_names, params)}
 
+    scorers = {"f1": f1_score,
+    "precision": precision_score,
+    "recall": recall_score}
+
+    if scoring in ["f1", "recall", "precision"]:
+      scorer = make_scorer(scorers[scoring], pos_label = pos_label)
+    else:
+      scorer = 'accuracy'
+    
     # Perform grid search with cross-validation
-    grid_search = GridSearchCV(estimator=estimator, param_grid=param_grid, cv=cv, scoring=scoring, verbose=verbose)
+    grid_search = GridSearchCV(estimator=estimator, param_grid=param_grid, cv=cv, scoring=scorer, verbose=verbose)
     grid_search.fit(X_train, y_train)
 
     # Get the best parameters
@@ -163,6 +172,31 @@ def plot_learning_curves(X_train, X_test, y_train, y_test, clfs, plot_train=True
     plt.legend(loc='best')
     plt.grid(True)
     plt.show()
+    
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+def get_score(y_true, y_pred, score_name, pos_label = 'M'):
+    """
+    Calculate and return different scores based on the passed string name of the score.
+
+    Parameters:
+    y_true (array-like): True labels.
+    y_pred (array-like): Predicted labels.
+    score_name (str): Name of the score ('accuracy', 'precision', 'recall', 'f1').
+
+    Returns:
+    float: Calculated score.
+    """
+    if score_name == 'accuracy':
+        return accuracy_score(y_true, y_pred)
+    elif score_name == 'precision':
+        return precision_score(y_true, y_pred, pos_label = 'M')
+    elif score_name == 'recall':
+        return recall_score(y_true, y_pred, pos_label = 'M')
+    elif score_name == 'f1':
+        return f1_score(y_true, y_pred, pos_label = 'M')
+    else:
+        raise ValueError("Invalid score name. Please choose from 'accuracy', 'precision', 'recall', or 'f1'.")
 
 def train_clfs_with_hyperparameters(model, param_name, param_values, X_train, y_train):
     """
